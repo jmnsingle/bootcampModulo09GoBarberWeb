@@ -10,6 +10,12 @@ module.exports = {
     SharedArrayBuffer: "readonly",
     __DEV__: true
   },
+  parser: "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended"
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -24,6 +30,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
     "global-require": "off",
     "react-native/no-raw-text": "off",
     "no-param-reassign": "off",
@@ -31,10 +38,17 @@ module.exports = {
     camelcase: "off",
     "no-console": ["error", { allow: ["tron"] }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
   },
   settings: {
     "import/resolver": {
+      "webpack": {
+        "config": {
+          "resolve": {
+            "modules": ["node_modules"]
+          }
+        }
+      },
       "babel-plugin-root-import": {
         rootPathSuffix: "src"
       },
