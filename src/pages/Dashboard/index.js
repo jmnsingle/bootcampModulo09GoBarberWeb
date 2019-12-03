@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import socketio from 'socket.io-client';
 import {
   format,
   addDays,
@@ -54,6 +56,21 @@ export default function Dashboard() {
 
     loadSchedue();
   }, [date]);
+
+  //const userId = useSelector(state => state.user.profile.id);
+  //const socket = useMemo(
+  //  () => socketio(`http://localhost:3333/my-namespace`),
+  //  []
+  //);
+
+  useEffect(() => {
+    const socket = socketio(`http://localhost:3333/my-namespace`);
+
+    socket.on('hello', data => {
+      console.log('Começou a ouvir ');
+      console.log('mensagen recebida: ', data);
+    });
+  }, []);
 
   function handlePrevDay() {
     setDate(subDays(date, 1));

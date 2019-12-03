@@ -25,23 +25,21 @@ export default function Notifications() {
   );
 
   const userId = useSelector(state => state.user.profile.id);
-  console.log('essa é a api', api)
-  const socket = useMemo(() => socketio(`http://localhost:3333`, {
-
-    query: {
-      user_id: userId
-    },
-  } ), [userId]);
+  const socket = useMemo(
+    () =>
+      socketio(`http://localhost:3333`, {
+        query: {
+          user_id: userId,
+        },
+      }),
+    [userId]
+  );
 
   useEffect(() => {
-    console.log('esse é o socket ',socket.query)
     socket.on('notification', notification => {
-      setNotifications([notification, ...notifications])
-    })
-    console.log(notifications)
-  }, [socket, notifications])
-
-
+      setNotifications([notification, ...notifications]);
+    });
+  }, [socket, notifications]);
 
   useEffect(() => {
     async function loadNotifications() {
